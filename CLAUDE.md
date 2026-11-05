@@ -9,6 +9,7 @@ Browser game: a first-person, grid-based party RPG. Plain HTML, CSS and JavaScri
 
 - After each change, test it (see below), then commit and push to `main` so the live game updates. Do this without being asked.
 - For large or risky features, ask the owner whether to work on a branch first.
+- When a commit changes `style.css` or any `js/*.js` file, bump the `?v=` number on every asset link in `index.html` so browsers fetch the new files: `sed -i -E 's/\?v=[0-9]+/?v=N/g' index.html` (N = current number + 1).
 - Keep the code formatted: `npx -y prettier@3.3.3 --print-width 100 --write "js/*.js" style.css`
 - Read only the file you need. Use the map below and search with grep before opening whole files.
 - When you add, rename or remove a file, or move a feature to another file, update the file map below (and the table in `README.md`) in the same commit.
