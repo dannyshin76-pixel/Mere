@@ -142,24 +142,50 @@ const KEYS = {
   e: "r",
   " ": "w",
 };
-// Swipe the view: left/right turns, up walks forward, down steps back
+// Swipe the view: left/right turns, up walks forward, down steps back.
+// Strafe with a two-finger sideways swipe, or hold still ~250ms then swipe sideways.
 let swipe = null;
+function endSwipe() {
+  if (swipe) clearTimeout(swipe.timer);
+  swipe = null;
+  cv.parentElement.classList.remove("hold");
+}
 cv.addEventListener("pointerdown", (e) => {
-  swipe = { x: e.clientX, y: e.clientY, id: e.pointerId };
+  if (swipe) {
+    swipe.two = true;
+    clearTimeout(swipe.timer);
+    return;
+  }
+  cv.setPointerCapture(e.pointerId);
+  swipe = { x: e.clientX, y: e.clientY, id: e.pointerId, two: false, hold: false, moved: false };
+  swipe.timer = setTimeout(() => {
+    if (swipe && !swipe.moved && !swipe.two) {
+      swipe.hold = true;
+      cv.parentElement.classList.add("hold");
+    }
+  }, 250);
 });
-cv.addEventListener("pointercancel", () => (swipe = null));
+cv.addEventListener("pointermove", (e) => {
+  if (!swipe || swipe.id !== e.pointerId || swipe.moved) return;
+  if (Math.hypot(e.clientX - swipe.x, e.clientY - swipe.y) > 10) {
+    swipe.moved = true;
+    clearTimeout(swipe.timer);
+  }
+});
+cv.addEventListener("pointercancel", endSwipe);
 cv.addEventListener("pointerup", (e) => {
   if (!swipe || swipe.id !== e.pointerId) return;
   const dx = e.clientX - swipe.x,
-    dy = e.clientY - swipe.y;
-  swipe = null;
+    dy = e.clientY - swipe.y,
+    strafe = swipe.two || swipe.hold;
+  endSwipe();
   if (Math.max(Math.abs(dx), Math.abs(dy)) < 30) return;
   if (mode === "member") {
     mode = "explore";
     renderAll();
   }
   if (mode !== "explore") return;
-  if (Math.abs(dx) > Math.abs(dy)) input(dx < 0 ? "tl" : "tr");
+  if (Math.abs(dx) > Math.abs(dy)) input(strafe ? (dx < 0 ? "l" : "r") : dx < 0 ? "tl" : "tr");
   else input(dy < 0 ? "f" : "b");
 });
 addEventListener("keydown", (e) => {

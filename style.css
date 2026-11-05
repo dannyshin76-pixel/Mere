@@ -126,6 +126,9 @@ h1 {
   max-width: 100%;
   image-rendering: pixelated;
 }
+.viewwrap.hold #view {
+  filter: brightness(0.75);
+}
 #mini {
   position: absolute;
   top: 8px;
