@@ -78,7 +78,7 @@ function renderPanel() {
     h = `<div class="pad">${btn("mv", "tl", '<span aria-hidden="true">&#8630;</span> Turn')}${btn("mv", "f", '<span aria-hidden="true">&#8593;</span> Forward')}${btn("mv", "tr", 'Turn <span aria-hidden="true">&#8631;</span>')}
       ${btn("mv", "l", '<span aria-hidden="true">&#8592;</span> Step')}${btn("mv", "b", '<span aria-hidden="true">&#8595;</span> Back')}${btn("mv", "r", 'Step <span aria-hidden="true">&#8594;</span>')}
       ${btn("mv", "w", "Wait")}${btn("map", null, bigMap ? "Close map" : "Map")}${btn("mm", "0", "Party")}</div>
-      <div class="hint">W / S forward and back · A / D turn · Q / E sidestep · Space wait · M map. Walk into a monster to strike first. Tap a party member to heal.</div>`;
+      <div class="hint">W / S forward and back · A / D turn · Q / E sidestep · Space wait · M map. On touch, swipe the view to walk and turn. Walk into a monster to strike first. Tap a party member to heal.</div>`;
   } else if (mode === "member") {
     const m = S.party[selM],
       cl = S.party[3],

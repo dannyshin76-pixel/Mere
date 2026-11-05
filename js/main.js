@@ -142,6 +142,26 @@ const KEYS = {
   e: "r",
   " ": "w",
 };
+// Swipe the view: left/right turns, up walks forward, down steps back
+let swipe = null;
+cv.addEventListener("pointerdown", (e) => {
+  swipe = { x: e.clientX, y: e.clientY, id: e.pointerId };
+});
+cv.addEventListener("pointercancel", () => (swipe = null));
+cv.addEventListener("pointerup", (e) => {
+  if (!swipe || swipe.id !== e.pointerId) return;
+  const dx = e.clientX - swipe.x,
+    dy = e.clientY - swipe.y;
+  swipe = null;
+  if (Math.max(Math.abs(dx), Math.abs(dy)) < 30) return;
+  if (mode === "member") {
+    mode = "explore";
+    renderAll();
+  }
+  if (mode !== "explore") return;
+  if (Math.abs(dx) > Math.abs(dy)) input(dx < 0 ? "tl" : "tr");
+  else input(dy < 0 ? "f" : "b");
+});
 addEventListener("keydown", (e) => {
   if (e.metaKey || e.ctrlKey || e.altKey) return;
   const k = e.key.toLowerCase();
