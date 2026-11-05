@@ -178,6 +178,9 @@ addEventListener("keydown", (e) => {
     }
   }
 });
+// Block text selection and image/element dragging anywhere in the game
+addEventListener("selectstart", (e) => e.preventDefault());
+addEventListener("dragstart", (e) => e.preventDefault());
 addEventListener("pagehide", () => {
   if (mode !== "battle") save();
 });

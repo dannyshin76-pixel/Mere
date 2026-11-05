@@ -19,6 +19,20 @@
 html,
 body {
   height: 100%;
+  overscroll-behavior: none;
+}
+/* Game surface: no text selection, image drag, long-press menu or drag-to-scroll */
+html {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+header,
+.viewwrap,
+.party,
+.panel {
+  touch-action: none;
 }
 body {
   background: var(--ink);
