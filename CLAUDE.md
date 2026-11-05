@@ -11,6 +11,8 @@ Browser game: a first-person, grid-based party RPG. Plain HTML, CSS and JavaScri
 - For large or risky features, ask the owner whether to work on a branch first.
 - Keep the code formatted: `npx -y prettier@3.3.3 --print-width 100 --write "js/*.js" style.css`
 - Read only the file you need. Use the map below and search with grep before opening whole files.
+- When you add, rename or remove a file, or move a feature to another file, update the file map below (and the table in `README.md`) in the same commit.
+- If a file grows past about 500 lines or holds more than one feature, suggest splitting it to the owner before adding more to it.
 
 ## File map
 
