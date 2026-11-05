@@ -16,6 +16,7 @@ A first-person party RPG that runs in the browser. Lead four adventurers across 
 | `js/ui.js` | Party cards, menus and message log |
 | `js/explore.js` | Movement, monster AI, chests, camp |
 | `js/battle.js` | Turn-based combat |
+| `js/battlemenu.js` | Battle command menu in the view, tap-to-target |
 | `js/render.js` | First-person renderer and minimap |
 | `js/main.js` | Game loop, input and startup |
 

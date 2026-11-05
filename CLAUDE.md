@@ -28,7 +28,8 @@ Scripts are classic `<script>` tags loaded in this order and share globals (no m
 | `js/world.js` | Field parsing, dungeon generator `genDungeon`, save state `S`, `save`/`load`, map helpers |
 | `js/ui.js` | Message log, banner, party cards, all side panels (`renderPanel`) |
 | `js/explore.js` | Movement, monster AI (`tick`), floor changes (`goFloor`), chests, camp, out-of-battle items |
-| `js/battle.js` | Turn-based combat: menus, damage formulas, enemy actions, victory, defeat |
+| `js/battle.js` | Turn-based combat: start, damage formulas, enemy actions, victory, defeat |
+| `js/battlemenu.js` | Battle command menu overlaid on the view (`battleMenu`), tap-an-enemy targeting (`battleTap`), command queue (`commit`, `back`) |
 | `js/render.js` | Software raycaster (`render`), battle overlay, minimap (`drawMap`) |
 | `js/main.js` | Game loop, keyboard and click input, startup |
 

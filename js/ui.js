@@ -109,7 +109,7 @@ function renderPanel() {
         .join("")}
       ${btn("close", null, "Leave camp", { back: 1 })}</div>`;
   } else if (mode === "battle") {
-    h = battlePanel();
+    h = battleSummary();
   } else if (mode === "over") {
     h = `<h2>The party has fallen</h2><p>You wake by the campfire, bruised and lighter of purse.</p><div class="menu one">${btn("wake", null, "Wake at camp")}</div>`;
   } else if (mode === "ending") {
@@ -118,13 +118,7 @@ function renderPanel() {
     h = `<h2>Start a new game?</h2><p>This erases your saved progress in this browser.</p><div class="menu">${btn("yesnew", null, "Start over")}${btn("close", null, "Cancel", { back: 1 })}</div>`;
   }
   panel.innerHTML = h;
-  let n = 1;
-  panel.querySelectorAll(".menu button[data-a]").forEach((b) => {
-    if (mode === "battle" && !b.dataset.back) {
-      b.insertAdjacentHTML("afterbegin", `<span class="k">${n}</span>`);
-    }
-    n++;
-  });
+  renderBattleMenu();
 }
 function renderAll() {
   renderHeader();

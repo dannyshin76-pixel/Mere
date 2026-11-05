@@ -265,10 +265,12 @@ function render(now) {
 function drawBattle(now) {
   ctx.fillStyle = "rgba(12,9,16,.62)";
   ctx.fillRect(0, 0, W, H);
-  const n = BT.enemies.length;
+  const n = BT.enemies.length,
+    feet = H - 24 - (BT.reserve || 0),
+    shrink = Math.min(1, (feet - 18) / 158);
   const sizes = BT.enemies.map((e) => {
     const sp = SPR[e.type],
-      bh = Math.min(158, 40 + 120 * EN[e.type].scale);
+      bh = Math.min(158, 40 + 120 * EN[e.type].scale) * shrink;
     return { bh, bw: (bh * sp.w) / sp.h };
   });
   const totalW = sizes.reduce((a, s) => a + s.bw, 0),
@@ -291,21 +293,28 @@ function drawBattle(now) {
       a = Math.max(0, 1 - (now - e.dieT) / 450);
       if (a <= 0) return;
     }
-    const top = 176 - bh - lift + oy;
+    const top = feet - bh - lift + oy;
     e.sx = cx;
     e.sy = top;
+    const hw = Math.max(bw, 44) / 2;
+    e.box = {
+      x: cx - hw,
+      y: Math.min(top, feet - 44),
+      w: hw * 2,
+      h: feet + 22 - Math.min(top, feet - 44),
+    };
     ctx.globalAlpha = a;
     ctx.drawImage(now - e.flash < 110 ? sp.fl : sp.c, cx - bw / 2 + ox, top, bw, bh);
     ctx.globalAlpha = 1;
     if (e.hp > 0) {
       ctx.fillStyle = "#0b0910";
-      ctx.fillRect(cx - 18, 184, 36, 4);
+      ctx.fillRect(cx - 18, feet + 8, 36, 4);
       ctx.fillStyle = "#d0594b";
-      ctx.fillRect(cx - 18, 184, (36 * e.hp) / e.max, 4);
+      ctx.fillRect(cx - 18, feet + 8, (36 * e.hp) / e.max, 4);
       ctx.font = '9px "IBM Plex Mono", monospace';
       ctx.textAlign = "center";
       ctx.fillStyle = "#ece3cf";
-      ctx.fillText(e.name, cx, 196);
+      ctx.fillText(e.name, cx, feet + 20);
     }
     if (
       BT.phase === "cmd" &&

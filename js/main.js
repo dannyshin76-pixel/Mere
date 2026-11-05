@@ -31,7 +31,7 @@ function loop(now) {
   drawMap();
   requestAnimationFrame(loop);
 }
-panel.addEventListener("click", (e) => {
+function onMenuClick(e) {
   const b = e.target.closest("button[data-a]");
   if (!b || b.disabled) return;
   const a = b.dataset.a,
@@ -94,7 +94,10 @@ panel.addEventListener("click", (e) => {
       goFloor("field", START.x, START.y, START.dir);
       break;
   }
-});
+}
+panel.addEventListener("click", onMenuClick);
+bmenu.addEventListener("click", onMenuClick);
+
 partyEl.addEventListener("click", (e) => {
   const c = e.target.closest(".card");
   if (!c) return;
@@ -179,7 +182,10 @@ cv.addEventListener("pointerup", (e) => {
     dy = e.clientY - swipe.y,
     strafe = swipe.two || swipe.hold;
   endSwipe();
-  if (Math.max(Math.abs(dx), Math.abs(dy)) < 30) return;
+  if (Math.max(Math.abs(dx), Math.abs(dy)) < 30) {
+    battleTap(e.clientX, e.clientY);
+    return;
+  }
   if (mode === "member") {
     mode = "explore";
     renderAll();
@@ -208,7 +214,7 @@ addEventListener("keydown", (e) => {
     return;
   }
   if (/^[1-9]$/.test(k)) {
-    const bs = panel.querySelectorAll(".menu button[data-a]"),
+    const bs = (mode === "battle" ? bmenu : panel).querySelectorAll("button[data-a]"),
       b = bs[+k - 1];
     if (b && !b.disabled) {
       e.preventDefault();
@@ -217,7 +223,7 @@ addEventListener("keydown", (e) => {
     return;
   }
   if (k === "escape" || k === "backspace") {
-    const b = panel.querySelector("button[data-back]");
+    const b = (mode === "battle" ? bmenu : panel).querySelector("button[data-back]");
     if (b) {
       e.preventDefault();
       b.click();
