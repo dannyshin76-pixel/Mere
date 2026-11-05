@@ -2,9 +2,7 @@
 
 A first-person party RPG that runs in the browser. Lead four adventurers across Ashfield Meadows and down into the Mossy Cellar and Hollow Keep. Every monster is visible on the map, so each fight is your choice.
 
-**Play it:** https://claude.ai/artifact/2SckN81vEZZhbfkFMdL9CA
-
-The game is a private Claude artifact, so the link opens only for its owner and for people it has been shared with.
+**Play it:** https://dannyshin76-pixel.github.io/Mere/
 
 ## Files
 
