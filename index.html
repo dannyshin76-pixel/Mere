@@ -1,0 +1,35 @@
+<title>Hollowmere</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@500;700&family=Alegreya+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+
+<div id="app">
+  <header>
+    <h1>Hollowmere</h1>
+    <span class="loc" id="loc">Ashfield Meadows</span>
+    <div class="meta"><span>Facing <b id="face">E</b></span><span>Gold <b id="gold">0</b></span><button class="linkbtn" id="newbtn" type="button">New game</button></div>
+  </header>
+  <div class="layout">
+    <section class="viewwrap" aria-label="First-person view">
+      <canvas id="view" width="320" height="200"></canvas>
+      <canvas id="mini" width="104" height="104" tabindex="0" aria-label="Map. Click to enlarge."></canvas>
+      <div class="banner" id="banner"></div>
+    </section>
+    <aside class="side">
+      <div class="party" id="party"></div>
+      <div class="panel" id="panel"></div>
+      <div class="log" id="log" aria-live="polite"></div>
+    </aside>
+  </div>
+</div>
+
+<script src="js/engine.js"></script>
+<script src="js/data.js"></script>
+<script src="js/world.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/explore.js"></script>
+<script src="js/battle.js"></script>
+<script src="js/render.js"></script>
+<script src="js/main.js"></script>
