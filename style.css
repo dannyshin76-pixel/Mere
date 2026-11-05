@@ -28,11 +28,25 @@ html {
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: transparent;
 }
+/* Set on every element: iOS Safari decides double-tap zoom from the tapped element itself */
+html,
+body,
+body * {
+  touch-action: manipulation;
+}
 header,
+header *,
 .viewwrap,
+.viewwrap *,
 .party,
-.panel {
+.party *,
+.panel,
+.panel * {
   touch-action: none;
+}
+.viewwrap .bmenu,
+.viewwrap .bmenu * {
+  touch-action: pan-y;
 }
 body {
   background: var(--ink);

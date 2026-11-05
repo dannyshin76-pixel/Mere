@@ -233,6 +233,20 @@ addEventListener("keydown", (e) => {
 // Block text selection and image/element dragging anywhere in the game
 addEventListener("selectstart", (e) => e.preventDefault());
 addEventListener("dragstart", (e) => e.preventDefault());
+// iOS Safari can still zoom on a quick second tap: cancel it and deliver the click ourselves
+let lastTouchEnd = 0;
+document.addEventListener(
+  "touchend",
+  (e) => {
+    const now = performance.now();
+    if (now - lastTouchEnd < 350 && e.changedTouches.length === 1) {
+      e.preventDefault();
+      if (e.target instanceof HTMLElement && e.target !== cv) e.target.click();
+    }
+    lastTouchEnd = now;
+  },
+  { passive: false },
+);
 addEventListener("pagehide", () => {
   if (mode !== "battle") save();
 });
